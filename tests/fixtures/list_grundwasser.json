@@ -1,0 +1,44 @@
+[
+  {
+    "nummer": "DEGM_DEBY83614",
+    "anzeigeName": "NBS-H/W KB 11/1",
+    "koordinate": {
+      "x": 9.62182150403828,
+      "y": 50.2036860313345
+    },
+    "aktuellerMesswert": 194.4,
+    "niedrigwasserKlasse": "SEHR_NIEDRIG",
+    "entwicklung": null,
+    "pegelUnterGlw": null,
+    "anzahlTageUnterGlw": null,
+    "hatSchifffahrtsrelevantenKennwert": false
+  },
+  {
+    "nummer": "DEGM_DEBY9230",
+    "anzeigeName": "EGG D 4",
+    "koordinate": {
+      "x": 10.2906505385355,
+      "y": 48.085579912485
+    },
+    "aktuellerMesswert": 565.79,
+    "niedrigwasserKlasse": "EXTREM_NIEDRIG",
+    "entwicklung": null,
+    "pegelUnterGlw": null,
+    "anzahlTageUnterGlw": null,
+    "hatSchifffahrtsrelevantenKennwert": false
+  },
+  {
+    "nummer": "DEGM_DEBY9248",
+    "anzeigeName": "FRAUENRIEDHAUSEN D 48",
+    "koordinate": {
+      "x": 10.4191675971095,
+      "y": 48.5963508757463
+    },
+    "aktuellerMesswert": 434.55,
+    "niedrigwasserKlasse": "KEIN_NIEDRIGWASSER",
+    "entwicklung": null,
+    "pegelUnterGlw": null,
+    "anzahlTageUnterGlw": null,
+    "hatSchifffahrtsrelevantenKennwert": false
+  }
+]

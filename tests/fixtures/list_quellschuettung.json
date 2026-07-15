@@ -1,0 +1,44 @@
+[
+  {
+    "nummer": "DEGM_DEHE5122",
+    "anzeigeName": "CALDEN",
+    "koordinate": {
+      "x": 9.4031086416366,
+      "y": 51.4114734836788
+    },
+    "aktuellerMesswert": 51.1,
+    "niedrigwasserKlasse": "KEIN_NIEDRIGWASSER",
+    "entwicklung": null,
+    "pegelUnterGlw": null,
+    "anzahlTageUnterGlw": null,
+    "hatSchifffahrtsrelevantenKennwert": false
+  },
+  {
+    "nummer": "DEGM_DEBW0601/517-7",
+    "anzeigeName": "QF Gallusquelle WV, Veringenstadt-Hermentingen",
+    "koordinate": {
+      "x": 9.21465012504957,
+      "y": 48.1998195667292
+    },
+    "aktuellerMesswert": 49.0,
+    "niedrigwasserKlasse": "EXTREM_NIEDRIG",
+    "entwicklung": null,
+    "pegelUnterGlw": null,
+    "anzahlTageUnterGlw": null,
+    "hatSchifffahrtsrelevantenKennwert": false
+  },
+  {
+    "nummer": "DEGM_DEBW1/415-1",
+    "anzeigeName": "QF Bronnbachquelle, Rottenburg",
+    "koordinate": {
+      "x": 8.90473121482034,
+      "y": 48.4687917650569
+    },
+    "aktuellerMesswert": 284.0,
+    "niedrigwasserKlasse": "NIEDRIG",
+    "entwicklung": null,
+    "pegelUnterGlw": null,
+    "anzahlTageUnterGlw": null,
+    "hatSchifffahrtsrelevantenKennwert": false
+  }
+]

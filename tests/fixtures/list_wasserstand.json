@@ -1,0 +1,44 @@
+[
+  {
+    "nummer": "DESM_DEBY16607001",
+    "anzeigeName": "Inkofen (Amper)",
+    "koordinate": {
+      "x": 11.8655273361443,
+      "y": 48.4606574767785
+    },
+    "aktuellerMesswert": 37.0,
+    "niedrigwasserKlasse": "EXTREM_NIEDRIG",
+    "entwicklung": "GLEICHBLEIBEND",
+    "pegelUnterGlw": null,
+    "anzahlTageUnterGlw": null,
+    "hatSchifffahrtsrelevantenKennwert": false
+  },
+  {
+    "nummer": "DESM_DEBY16612001",
+    "anzeigeName": "Peißenberg (Ammer)",
+    "koordinate": {
+      "x": 11.0573979692669,
+      "y": 47.7782519253637
+    },
+    "aktuellerMesswert": 65.0,
+    "niedrigwasserKlasse": "NIEDRIG",
+    "entwicklung": "GLEICHBLEIBEND",
+    "pegelUnterGlw": null,
+    "anzahlTageUnterGlw": null,
+    "hatSchifffahrtsrelevantenKennwert": false
+  },
+  {
+    "nummer": "DESM_DEBY16825002",
+    "anzeigeName": "Appolding (Strogen)",
+    "koordinate": {
+      "x": 11.9824741091725,
+      "y": 48.4129729003799
+    },
+    "aktuellerMesswert": 37.0,
+    "niedrigwasserKlasse": "EXTREM_NIEDRIG",
+    "entwicklung": "GLEICHBLEIBEND",
+    "pegelUnterGlw": null,
+    "anzahlTageUnterGlw": null,
+    "hatSchifffahrtsrelevantenKennwert": false
+  }
+]
