@@ -68,6 +68,11 @@ USER_AGENT: Final = (
 )
 API_TIMEOUT: Final = 60  # Sekunden; die Listen-Endpunkte rechnen serverseitig.
 
+# NIWIS/BfG kodiert fehlende Messwerte als Sentinel -777 ("Lücke"). Solche Werte
+# (und noch negativere Varianten) sind keine echten Messwerte -> als unbekannt
+# behandeln. Reale Tiefstwerte liegen weit darüber (z. B. -1 cm, -0,94 m ü. NHN).
+MISSING_VALUE_SENTINEL: Final = -777.0
+
 # Messgrößen (Kartenthemen), wie vom Backend erwartet.
 MG_GRUNDWASSER: Final = "GRUNDWASSER"
 MG_QUELLSCHUETTUNG: Final = "QUELLSCHUETTUNG"

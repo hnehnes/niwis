@@ -20,6 +20,7 @@ from .const import (
     API_TIMEOUT,
     DETAIL_PATH_BY_MESSGROESSE,
     KLASS_DYNAMISCH,
+    MISSING_VALUE_SENTINEL,
     USER_AGENT,
 )
 
@@ -56,13 +57,17 @@ class Station:
     def from_payload(cls, messgroesse: str, data: dict[str, Any]) -> Station:
         """Build a :class:`Station` from a raw list-endpoint object."""
         koord = data.get("koordinate") or {}
+        messwert = data.get("aktuellerMesswert")
+        if messwert is not None and messwert <= MISSING_VALUE_SENTINEL:
+            # -777 ("Lücke") ist kein echter Messwert.
+            messwert = None
         return cls(
             nummer=data["nummer"],
             name=data.get("anzeigeName") or data["nummer"],
             messgroesse=messgroesse,
             latitude=koord.get("y"),
             longitude=koord.get("x"),
-            aktueller_messwert=data.get("aktuellerMesswert"),
+            aktueller_messwert=messwert,
             niedrigwasser_klasse=data.get("niedrigwasserKlasse"),
             entwicklung=data.get("entwicklung"),
             pegel_unter_glw=data.get("pegelUnterGlw"),
