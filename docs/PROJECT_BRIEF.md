@@ -81,11 +81,15 @@ Provider:
   Nächste zu Hoppegarten: **„Münchehofe, Hoppegarten" MKZ 35480874, 3,8 km, täglich**
   (vs. NIWIS Niederschönhausen 17 km). Parsing-Snippet: pyshp + pyproj (siehe unten).
 - **Zeitreihen/aktuelle Werte:** Auskunftsplattform `https://apw.brandenburg.de/?th=ZR_GW_ME`
-  — ist ein **cardoMap3-GIS** (IDU), Daten über proprietären Connector
-  `https://apw.brandenburg.de/webmap.ashx?...&connectorTypeName=...MapControlConnector`.
-  **Noch NICHT ausgegraben** — erster Schritt im neuen Chat: die XHR-Calls der APW-Karte
-  (Diagramm/ZR_GW_ME) auslesen und den Zeitreihen-Endpoint pro MKZ finden (analog zum
-  NIWIS-Vorgehen).
+  — ist ein **cardoMap3-GIS** (IDU). **AUSGEGRABEN (2026-07-16, live verifiziert)** →
+  vollständige Protokoll-Doku + reale Beispiel-Payload in `docs/research/apw-brandenburg.md`,
+  Provider-Implementierung in `custom_components/niwis/providers/lfu_bb.py`, Fixtures/Tests in
+  `tests/fixtures/lfu_bb/` + `tests/test_lfu_bb.py`. Kurz: AjaxPro-Kette MKZ→msid
+  (`SelectionControl.AxExecuteQuery`, Layer L305, Feld `nummer`) →
+  `MultiExportControl.AxGetAvailableParameterChoice`/`AxGetZeitraum`/`AxExport(format=1)` →
+  ZIP mit CSV (m ü. NHN). **Achtung MKZ-Mismatch:** Shapefile-`MKZ` ≠ APW-`nummer`
+  (Münchehofe Shapefile 35480874 vs APW 35480875, und Letzteres ist ein Güte-Pegel *ohne*
+  Wasserstand). Der Join Shapefile↔APW ist also offen (siehe Teil B unten).
 - WFS-Versuche auf `maps.brandenburg.de/services/wfs/*` für GW-Stellen: 404 (Wasser-
   Layer existieren dort, aber kein direkter GW-Messstellen-WFS gefunden).
 
@@ -100,11 +104,21 @@ r = shapefile.Reader("gw_basis_mn")
 
 ---
 
-## 3. Empfohlener erster Schritt im neuen Chat
-1. APW-Endpoint für GW-Zeitreihen ausgraben (XHR der cardoMap-Diagramme, `webmap.ashx`
-   bzw. ein Diagramm-/Export-Endpoint pro MKZ). Eine reale Beispiel-Payload speichern.
-2. Provider-Interface + `grundwasser_de`-Gerüst definieren; `niwis` als ersten Provider
-   einhängen, `lfu_bb` als zweiten.
-3. Config-Flow mit quellenübergreifender Umkreissuche.
+## 3. Fortschritt & nächste Schritte
 
-Alles Weitere (Sensoren, Tests, HACS) analog zum bestehenden NIWIS-Repo.
+**Erledigt (Branch `feat/grundwasser-de-lfu-bb`):**
+1. ✅ APW-Endpoint für GW-Zeitreihen ausgegraben + reale Beispiel-Payload gespeichert
+   (`docs/research/apw-brandenburg.md`, Fixtures).
+2. ✅ Provider-Interface `custom_components/niwis/providers/base.py`
+   (`Provider`/`ProviderStation`/`ProviderReading`) + erster State-Provider
+   `providers/lfu_bb.py` (`async_search_query` + `async_fetch`, live verifiziert, 26 Tests grün).
+
+**Offen (Teil B):**
+3. `niwis` (bestehendes `api.py`) auf dasselbe Provider-Interface adaptieren (`providers/niwis.py`).
+4. **Umkreissuche für `lfu_bb`** lösen (`async_search_radius` wirft aktuell
+   `ProviderCapabilityError`): die APW-Stationsliste hat keine Koordinaten → Koordinaten aus
+   dem Shapefile (`gw_basis_mn.zip`, EPSG:25833) beziehen und per Nähe an die APW-`nummer`
+   joinen. **MKZ-Mismatch** (s. o.) sauber behandeln (Fuzzy-/Koordinaten-Join statt exaktem MKZ).
+5. Config-Flow mit quellenübergreifender Umkreissuche (dedupliziert über Provider).
+6. Coordinator/Sensoren quellenneutral verdrahten; ggf. Domain-Rename `niwis`→`grundwasser_de`
+   (Migration, da installiert). Sensoren, Tests, HACS analog zum bestehenden NIWIS-Repo.
