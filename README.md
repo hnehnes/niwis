@@ -20,6 +20,7 @@ im Config-Flow die **tatsächlich nächste** Messstelle quellenübergreifend an.
 | `wasserportal_be` | Wasserportal Berlin | Berlin | dl-de/by-2.0 | CSV-Ganglinie, m ü. NHN |
 | `lfu_sh` | LfU Schleswig-Holstein – WFS + Open Data | Schleswig-Holstein | dl-de/by-2.0 | Ganglinie, m ü. NN |
 | `lanuk_nw` | LANUK NRW – OpenHygrisC-Bulk | Nordrhein-Westfalen | dl-de/zero-2.0 | aktueller Wert (monatl. Snapshot), m ü. NHN |
+| `gkd_by` | GKD Bayern / LfU – gkd.bayern.de | Bayern | CC-BY 4.0 | ~2200 Stellen, m ü. NN |
 
 Weitere Landesnetze lassen sich als zusätzliche Provider unter
 `custom_components/grundwasser_de/providers/` ergänzen; das Interface ist in
