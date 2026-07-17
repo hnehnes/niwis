@@ -28,6 +28,7 @@ from .const import (
 )
 from .providers import (
     BukeaHhProvider,
+    HlnugHeProvider,
     LfuBbProvider,
     NiwisProvider,
     Provider,
@@ -43,6 +44,7 @@ PROVIDER_FACTORIES = {
     NiwisProvider.domain: NiwisProvider,
     LfuBbProvider.domain: LfuBbProvider,
     BukeaHhProvider.domain: BukeaHhProvider,
+    HlnugHeProvider.domain: HlnugHeProvider,
 }
 
 
