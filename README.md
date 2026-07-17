@@ -11,15 +11,21 @@ im Config-Flow die **tatsächlich nächste** Messstelle quellenübergreifend an.
 
 ## Datenquellen (Provider)
 
-| Provider | Quelle | Abdeckung | Besonderheit |
-| -------- | ------ | --------- | ------------ |
-| `niwis` | Niedrigwasserinformationssystem der BfG – [niwis-online.de](https://niwis-online.de) | bundesweit | zusätzlich **Niedrigwasserklasse** + Trend (Bezug 1991–2020) |
-| `lfu_bb` | LfU Brandenburg, Auskunftsplattform Wasser – [apw.brandenburg.de](https://apw.brandenburg.de) | Brandenburg (~2000 Stellen) | teils tägliche/wöchentliche Werte, m ü. NHN |
+| Provider | Quelle | Abdeckung | Lizenz | Besonderheit |
+| -------- | ------ | --------- | ------ | ------------ |
+| `niwis` | Niedrigwasserinformationssystem der BfG – [niwis-online.de](https://niwis-online.de) | bundesweit | – | zusätzlich **Niedrigwasserklasse** + Trend (1991–2020) |
+| `lfu_bb` | LfU Brandenburg, APW – [apw.brandenburg.de](https://apw.brandenburg.de) | Brandenburg | dl-de/by-2.0 | ~1850 Pegel, Ganglinie, m ü. NHN |
+| `bukea_hh` | BUKEA Hamburg – OGC API Features | Hamburg | CC0 | Ganglinie, m ü. NHN |
+| `hlnug_he` | HLNUG Hessen – GruSchu (ArcGIS) | Hessen | CC-BY 4.0 | Ganglinie, m ü. NN |
+| `wasserportal_be` | Wasserportal Berlin | Berlin | dl-de/by-2.0 | CSV-Ganglinie, m ü. NHN |
+| `lfu_sh` | LfU Schleswig-Holstein – WFS + Open Data | Schleswig-Holstein | dl-de/by-2.0 | Ganglinie, m ü. NN |
+| `lanuk_nw` | LANUK NRW – OpenHygrisC-Bulk | Nordrhein-Westfalen | dl-de/zero-2.0 | aktueller Wert (monatl. Snapshot), m ü. NHN |
 
-Weitere Landesnetze (Bayern GKD, Berlin, NRW ELWAS …) lassen sich als zusätzliche
-Provider unter `custom_components/grundwasser_de/providers/` ergänzen; das Interface
-ist in [`providers/base.py`](custom_components/grundwasser_de/providers/base.py)
-dokumentiert.
+Weitere Landesnetze lassen sich als zusätzliche Provider unter
+`custom_components/grundwasser_de/providers/` ergänzen; das Interface ist in
+[`providers/base.py`](custom_components/grundwasser_de/providers/base.py) dokumentiert,
+generische Helfer für **ArcGIS** (`_arcgis.py`) und **WFS** (`_wfs.py`) liegen bereit.
+Recherche-Stand aller 16 Länder: [`docs/research/laender-grundwasser-quellen.md`](docs/research/laender-grundwasser-quellen.md).
 
 ## Funktionsumfang
 
