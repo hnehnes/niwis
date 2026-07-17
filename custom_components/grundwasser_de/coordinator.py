@@ -28,6 +28,7 @@ from .const import (
 )
 from .providers import (
     BukeaHhProvider,
+    GkdByProvider,
     HlnugHeProvider,
     LanukNwProvider,
     LfuBbProvider,
@@ -51,6 +52,7 @@ PROVIDER_FACTORIES = {
     WasserportalBeProvider.domain: WasserportalBeProvider,
     LfuShProvider.domain: LfuShProvider,
     LanukNwProvider.domain: LanukNwProvider,
+    GkdByProvider.domain: GkdByProvider,
 }
 
 

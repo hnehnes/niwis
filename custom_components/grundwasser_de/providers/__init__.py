@@ -23,6 +23,7 @@ from .base import (
     ProviderStation,
 )
 from .bukea_hh import BukeaHhProvider
+from .gkd_by import GkdByProvider
 from .hlnug_he import HlnugHeProvider
 from .lanuk_nw import LanukNwProvider
 from .lfu_bb import LfuBbProvider
@@ -32,6 +33,7 @@ from .wasserportal_be import WasserportalBeProvider
 
 __all__ = [
     "BukeaHhProvider",
+    "GkdByProvider",
     "HlnugHeProvider",
     "LanukNwProvider",
     "LfuBbProvider",
