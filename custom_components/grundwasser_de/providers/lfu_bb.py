@@ -18,12 +18,14 @@ Chain used here (MKZ → time series):
    ``…_messreihen.csv`` holds the series (UTF-8 BOM, ``;``-separated, German
    decimal comma, ``dd.MM.yyyy`` dates).
 
-The radius search uses a bundled station list (MKZ + WGS84 coordinates) derived
-offline from the LfU shapefile ``gw_basis_mn.zip`` — the APW station list carries
-no coordinates. Fetch then resolves the APW ``msid`` from the MKZ on demand. Note
-the APW ``nummer`` does not always equal the shapefile ``MKZ`` (e.g. Münchehofe is
-shapefile ``35480874`` but APW ``35480875``, and the latter is a water-quality
-well without a level series), so some nearby stations have no fetchable level.
+The radius search uses a bundled station list built offline (see
+``scripts/build_lfu_bb_stations.py``) from the LfU shapefile ``gw_basis_mn.zip``
+intersected with APW: only stations that actually expose a groundwater-level
+series are kept, each carrying its coordinates and resolved internal ``msid``.
+That keeps dead stations (pure water-quality wells, or MKZ absent from APW — the
+shapefile ``MKZ`` does not always equal the APW ``nummer``) out of the search,
+and lets fetch use the cached ``msid`` directly. The runtime safety net in
+:meth:`async_fetch` (value ``None`` when a station has no series) still applies.
 """
 
 from __future__ import annotations
@@ -100,10 +102,14 @@ _MSID_RE = re.compile(r"id_messstelle=(\d+)")
 _STATION_RE = re.compile(r"Messstelle:\s*<b>\s*([^,<]+?)\s*,\s*([^<]+?)\s*</b>")
 _WCF_DATE_RE = re.compile(r"/Date\((-?\d+)\)/")
 
-#: Bundled station master data (MKZ, name, WGS84 lat/lon) derived offline from
-#: the LfU shapefile ``gw_basis_mn.zip`` (EPSG:25833 → WGS84). Shipping it avoids
-#: a runtime shapefile download and heavy pyshp/pyproj dependencies. It is the
-#: coordinate source for the radius search; the APW station list carries none.
+#: Bundled station master data — ``{mkz, name, lat, lon, msid}`` per station —
+#: built offline by ``scripts/build_lfu_bb_stations.py`` from the LfU shapefile
+#: ``gw_basis_mn.zip`` (EPSG:25833 → WGS84) intersected with APW: only stations
+#: that actually expose a groundwater-*level* series are kept (pure water-quality
+#: wells and stations absent from APW are dropped), and each carries the resolved
+#: internal ``msid``. Shipping it avoids a runtime shapefile download, heavy
+#: pyshp/pyproj deps, and — via the cached msid — a fetch-time resolution query.
+#: The APW station list itself carries no coordinates, hence the shapefile.
 _STATIONS_FILE = Path(__file__).with_name("lfu_bb_stations.json")
 
 
@@ -250,6 +256,9 @@ class LfuBbProvider(Provider):
                 latitude, longitude, station["lat"], station["lon"]
             )
             if distance <= radius_km:
+                extra = {}
+                if station.get("msid") is not None:
+                    extra["msid"] = station["msid"]
                 matches.append(
                     ProviderStation(
                         provider=DOMAIN,
@@ -258,6 +267,7 @@ class LfuBbProvider(Provider):
                         latitude=station["lat"],
                         longitude=station["lon"],
                         distance_km=distance,
+                        extra=extra,
                     )
                 )
         matches.sort(key=lambda s: s.distance_km or 0.0)

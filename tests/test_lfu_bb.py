@@ -279,6 +279,8 @@ async def test_search_radius_from_bundled_stations() -> None:
     assert stations[0].name == "Grimme"
     assert stations[0].distance_km is not None and stations[0].distance_km < 1
     assert stations[0].latitude == 53.4225
+    # the bundled list carries the resolved msid -> cached into extra
+    assert stations[0].extra["msid"] == 8449
     # sorted nearest-first
     assert all(
         (a.distance_km or 0) <= (b.distance_km or 0)

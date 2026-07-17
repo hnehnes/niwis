@@ -78,14 +78,14 @@ async def test_radius_flow_lfu(
     assert result["type"] is FlowResultType.FORM
     assert result["step_id"] == "select"
 
-    # Münchehofe/Hoppegarten (~2 km) is bundled; pick it.
+    # Bollensdorf (~2.7 km) is a bundled level station; pick it.
     result = await hass.config_entries.flow.async_configure(
-        result["flow_id"], {CONF_STATIONS: ["lfu_bb:35480874"]}
+        result["flow_id"], {CONF_STATIONS: ["lfu_bb:34480880"]}
     )
     assert result["type"] is FlowResultType.CREATE_ENTRY
     stations = result["data"][CONF_STATIONS]
     assert stations[0][CONF_PROVIDER] == "lfu_bb"
-    assert stations[0][CONF_STATION_ID] == "35480874"
+    assert stations[0][CONF_STATION_ID] == "34480880"
 
 
 async def test_query_no_results(

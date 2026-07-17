@@ -66,11 +66,13 @@ Den Ordner `custom_components/grundwasser_de` nach
 
 ## Hinweise zur Datenlage
 
-- Nicht jede Messstelle liefert jede Größe: manche Brunnen sind reine **Güte**-Pegel
-  ohne Grundwasserstand – deren Wert-Sensor bleibt dann *unbekannt*.
-- Die Kennziffern der LfU (Shapefile-`MKZ`) decken sich nicht immer 1:1 mit den
-  Kennziffern der Auskunftsplattform; Stationen ohne dort abrufbare Zeitreihe
-  liefern *unbekannt* statt eines Fehlers.
+- Die LfU-Umkreissuche bietet **nur Messstellen mit tatsächlich abrufbarem
+  Grundwasserstand** an: reine **Güte**-Pegel (nur Wasserqualität) und Stationen,
+  die in der Auskunftsplattform keine Zeitreihe haben, sind vorab herausgefiltert.
+  Die Filterliste wird offline erzeugt (`scripts/build_lfu_bb_stations.py`) und ist
+  gebündelt – bei Bedarf regenerierbar.
+- Sollte eine Station später doch keine Daten liefern, bleibt ihr Wert-Sensor
+  *unbekannt* (kein Fehler, der Rest der Messstellen bleibt aktuell).
 
 ## Beispiel-Dashboard
 
